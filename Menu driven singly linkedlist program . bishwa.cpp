@@ -1,3 +1,4 @@
+//Bishwajeet Singh
 #include<stdio.h>
 #include<stdlib.h>
 struct node
@@ -22,16 +23,13 @@ struct node*insertnode(struct node*head)
 		if(head==NULL)
 		{
 			head=newnode;
+			temp=head;
 		}
 		else
 		{
 			struct node*temp;
-			temp=head;
-			while(temp->next!=NULL)
-			{
-				temp=temp->next;
-			}
 			temp->next=newnode;
+			temp=newnode;
 		}
 	}
 		return head;
