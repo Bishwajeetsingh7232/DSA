@@ -15,6 +15,7 @@ struct node*insertnode(struct node*head)
 	for(i=0;i<n;i++)
 	{
 		struct node*newnode=(struct node*) malloc(sizeof(struct node));
+		struct node*temp;
 		int val;
 		printf("Enter the node data : ");
 		scanf("%d",&val);
@@ -27,7 +28,7 @@ struct node*insertnode(struct node*head)
 		}
 		else
 		{
-			struct node*temp;
+	
 			temp->next=newnode;
 			temp=newnode;
 		}
