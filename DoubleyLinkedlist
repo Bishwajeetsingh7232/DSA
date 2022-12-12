@@ -1,0 +1,204 @@
+//Bishwajeetsingh7232
+//Doubley linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node*next;
+	struct node*previous;
+};
+
+struct node*insert_elementAtnode(struct node*head)
+{
+	int i,n;
+	printf("Enter how many node u want: ");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+    	struct node*newnode=(struct node*)malloc(sizeof(struct node));
+        int val;
+        printf("Enter node data :");
+        scanf("%d",&val);
+        struct node*temp;
+        newnode->previous=NULL;
+        newnode->data=val;
+        newnode->next=NULL;
+        if(head==NULL)
+        {
+        	head=newnode;
+        	temp=newnode;
+		}
+		else
+		{
+		  temp->next=newnode;
+		  newnode->previous=temp;
+		  temp=newnode;	
+		}
+        
+	}
+    return head;	 
+}
+
+void linkedlisttraversal(struct node*ptr)
+{
+	printf("\nInsertation is successfully completed :");
+	while(ptr!=NULL)
+	{
+		
+		printf("%d ",ptr->data);
+		ptr=ptr->next;
+	}
+}
+
+struct node*insertAt_beg(struct node*head,int newdata)
+{
+   struct node*newnode=(struct node*)malloc(sizeof(struct node));
+   newnode->data=newdata;
+   newnode->previous=NULL;
+   newnode->next=head;
+   head->previous=newnode;
+   head=newnode;
+   return head;
+}
+
+struct node*insert_end(struct node*head,int newdata)
+{
+	struct node*temp;
+	struct node*newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=newdata;
+	newnode->next=NULL;
+	temp=head;
+	while(temp->next!=NULL)
+	{
+	  temp=temp->next;	
+	}
+	temp->next=newnode;
+	newnode->previous=temp;
+	return head;
+}
+struct node*insertAtmiddle(struct node*head,int newdata,int position)
+{
+	struct node*temp;
+	struct node*newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=newdata;
+	temp=head;
+	int i=1;
+	while(i<position-1)
+	{
+		temp=temp->next;
+		i++;
+	}
+	newnode->next=temp->next;
+	newnode->previous=temp;
+	temp->next->previous=newnode;
+	temp->next=newnode;
+
+return head;
+}
+
+struct node*Delete_beg( struct node*head)
+{
+	head=head->next;
+	head->previous=NULL;
+	return head;
+}
+
+struct node*DeletionAtend(struct node*head)
+{
+	struct node*temp;
+	temp=head;
+	while(temp->next!=NULL)
+	{
+		temp=temp->next;
+	}
+	temp->previous->next=NULL;
+	return head;
+}
+
+struct node*Deletion_middle(struct node*head,int position)
+{
+	struct node*temp;
+	temp=head;
+	int i=1;
+	while(i<position)
+	{
+		temp=temp->next;
+		i++;
+	}
+	temp->previous->next=temp->next;
+	temp->next->previous=temp;
+	return head;
+}
+
+int main()
+{
+	
+	printf("Insertion\n");
+	printf("\n For insertion at begining : Press 1\n");
+    printf("\n For insertion at end: Press 2\n");
+	printf("\n For insertion at given position: Press 3\n");
+	printf("\n");
+	printf("Deletion\n");
+	printf("\n For deletion at begining : press 4\n");
+	printf("\n For deletion at end : press 5\n");
+	printf("\n For deletion any where At middle : Press any key except above choice :\n");
+	printf("\n");
+	
+  struct node*head=NULL;
+  head=insert_elementAtnode(head);
+  printf("Created linked list:\n");
+  linkedlisttraversal(head);
+  	printf("\n");
+	printf("Enter the choice :\n");
+	int choice;
+	scanf("%d",&choice);
+	if(choice==1)
+	{
+  int newdata;
+  printf("\nEnter a data u want to insert at begging :\n");
+  scanf("%d",&newdata);
+  head=insertAt_beg(head,newdata);
+  linkedlisttraversal(head);
+}
+else if(choice==2)
+{
+	int newdata;
+  printf("\nEnter a data u want to insert at end :\n");
+  scanf("%d",&newdata);
+  head=insert_end(head,newdata);
+  linkedlisttraversal(head);
+}
+else if(choice==3)
+{
+	int newdata;
+  int position;
+  printf("\nEnter a data u want to insert and also in which position\n");
+  scanf("%d %d",&newdata,&position);
+  head=insertAtmiddle(head,newdata,position);
+  linkedlisttraversal(head);
+}
+  else if(choice==4)
+  {
+  	printf("\nDeletion of first node : ");
+
+  head=Delete_beg(head);
+  linkedlisttraversal(head);
+}
+else if(choice==5)
+{
+	printf("\nDeletion of end node");
+	head=DeletionAtend(head);
+	linkedlisttraversal(head);
+}
+else 
+{
+	int position;
+	printf("\nEnter a position where u want to delete: ");
+	scanf("%d",&position);
+	head=Deletion_middle(head,position);
+	linkedlisttraversal(head);
+}
+  
+  return 0;	
+}
